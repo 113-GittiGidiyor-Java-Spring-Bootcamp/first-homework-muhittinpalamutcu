@@ -1,20 +1,31 @@
 package io.github.muhittinpalamutcu.clients;
 
+import io.github.muhittinpalamutcu.controller.StudentController;
 import io.github.muhittinpalamutcu.models.*;
 import io.github.muhittinpalamutcu.utils.EntityManagerUtils;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.List;
 
 public class SchoolManagementApiClient {
     public static void main(String[] args) {
-        saveTestData();
+        //saveTestData();
+
+        StudentController studentController = new StudentController();
+
+        List<Student> students = studentController.findAll();
+
+        for (Student student : students) {
+            System.out.println(student);
+        }
+
     }
 
     private static void saveTestData() {
-        Student student1 = new Student("Muhittin Palamutcu", "Gaziemir Izmir", LocalDate.of(1998, Month.JANUARY, 13), "MALE");
-        Student student2 = new Student("Berke Edis", "Kusadasi Aydin", LocalDate.of(1996, Month.AUGUST, 12), "MALE");
+        Person student1 = new Student("Muhittin Palamutcu", "Gaziemir Izmir", LocalDate.of(1998, Month.JANUARY, 13), "MALE");
+        Person student2 = new Student("Berke Edis", "Kusadasi Aydin", LocalDate.of(1996, Month.AUGUST, 12), "MALE");
 
         Instructor permanentInstructor1 = new PermanentInstructor("Ipek Demir", "Izmir", "5071234551", 5000);
         Instructor permanentInstructor2 = new PermanentInstructor("Isıl Parlak", "Antalya", "5553524576", 7000);
@@ -28,11 +39,11 @@ public class SchoolManagementApiClient {
         course2.setInstructor(permanentInstructor2);
         course3.setInstructor(visitingResearcher1);
 
-        student1.getCourses().add(course1);
-        student1.getCourses().add(course2);
-        student1.getCourses().add(course3);
-        student2.getCourses().add(course1);
-        student2.getCourses().add(course2);
+        ((Student) student1).getCourses().add(course1);
+        ((Student) student1).getCourses().add(course2);
+        ((Student) student1).getCourses().add(course3);
+        ((Student) student2).getCourses().add(course1);
+        ((Student) student2).getCourses().add(course2);
 
         EntityManager em = EntityManagerUtils.getEntityManager("mysqlPU");
 
