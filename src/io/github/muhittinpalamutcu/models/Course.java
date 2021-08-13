@@ -1,9 +1,8 @@
 package io.github.muhittinpalamutcu.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -15,14 +14,36 @@ public class Course {
     private String courseCode;
     private int creditScore;
 
+    @ManyToOne
+    private Instructor instructor;
+
+    @ManyToMany(mappedBy = "courses")
+    private List<Student> students = new ArrayList<>();
+
     public Course(String name, String courseCode, int creditScore) {
         this.name = name;
         this.courseCode = courseCode;
         this.creditScore = creditScore;
     }
 
-    public Course(){
+    public Course() {
 
+    }
+
+    public Instructor getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(Instructor instructor) {
+        this.instructor = instructor;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 
     public String getName() {

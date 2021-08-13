@@ -3,11 +3,17 @@ package io.github.muhittinpalamutcu.models;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 public class Instructor extends Person {
     private String phoneNumber;
+
+    @OneToMany(mappedBy = "instructor")
+    private List<Course> courses = new ArrayList<>();
 
     public Instructor(String name, String address, String phoneNumber) {
         super(name, address);
@@ -18,8 +24,16 @@ public class Instructor extends Person {
         this.phoneNumber = phoneNumber;
     }
 
-    public Instructor(){
+    public Instructor() {
 
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
     }
 
     public String getPhoneNumber() {

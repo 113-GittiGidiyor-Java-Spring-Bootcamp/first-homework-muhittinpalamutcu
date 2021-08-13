@@ -1,13 +1,19 @@
 package io.github.muhittinpalamutcu.models;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 public class Student extends Person {
     private LocalDate birthDate;
     private String gender;
+
+    @ManyToMany
+    private List<Course> courses = new ArrayList<>();
 
     public Student(String name, String address, LocalDate birthDate, String gender) {
         super(name, address);
@@ -22,6 +28,14 @@ public class Student extends Person {
 
     public Student(){
 
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
     }
 
     public LocalDate getBirthDate() {
