@@ -19,7 +19,7 @@ public class SchoolManagementApiClient {
         //updateStudent(1, new Student("Muhittin Palamutcu", "Gaziemir, Izmir", LocalDate.of(1998, Month.AUGUST, 30), "MALE"));
         //updateStudentAddress(9, "Besiktas, Istanbul");
         //findStudent(1);
-        //saveNewStudent(new Student("Ozlem Oz", "Istanbul", LocalDate.of(1980, Month.APRIL, 17), "FEMALE"));
+        //saveNewStudent(new Student("John Doe", "Londra", LocalDate.of(1988, Month.APRIL, 29), "MALE"));
         //studentController.studentEnrollInCourse(9, "SE302");
 
         listAllStudents();
@@ -58,8 +58,8 @@ public class SchoolManagementApiClient {
     }
 
     private static void saveTestData() {
-        Person student1 = new Student("Muhittin Palamutcu", "Gaziemir Izmir", LocalDate.of(1998, Month.JANUARY, 13), "MALE");
-        Person student2 = new Student("Berke Edis", "Kusadasi Aydin", LocalDate.of(1996, Month.AUGUST, 12), "MALE");
+        Student student1 = new Student("Muhittin Palamutcu", "Gaziemir Izmir", LocalDate.of(1998, Month.JANUARY, 13), "MALE");
+        Student student2 = new Student("Berke Edis", "Kusadasi Aydin", LocalDate.of(1996, Month.AUGUST, 12), "MALE");
 
         Instructor permanentInstructor1 = new PermanentInstructor("Ipek Demir", "Izmir", "5071234551", 5000);
         Instructor permanentInstructor2 = new PermanentInstructor("Isıl Parlak", "Antalya", "5553524576", 7000);
@@ -73,11 +73,11 @@ public class SchoolManagementApiClient {
         course2.setInstructor(permanentInstructor2);
         course3.setInstructor(visitingResearcher1);
 
-        ((Student) student1).getCourses().add(course1);
-        ((Student) student1).getCourses().add(course2);
-        ((Student) student1).getCourses().add(course3);
-        ((Student) student2).getCourses().add(course1);
-        ((Student) student2).getCourses().add(course2);
+        student1.getCourses().add(course1);
+        student1.getCourses().add(course2);
+        student1.getCourses().add(course3);
+        student2.getCourses().add(course1);
+        student2.getCourses().add(course2);
 
         EntityManager em = EntityManagerUtils.getEntityManager("mysqlPU");
 

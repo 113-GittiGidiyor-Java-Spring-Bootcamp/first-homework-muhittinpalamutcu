@@ -4,33 +4,33 @@ import io.github.muhittinpalamutcu.models.Course;
 import io.github.muhittinpalamutcu.models.Student;
 import io.github.muhittinpalamutcu.repository.CrudRepository;
 import io.github.muhittinpalamutcu.repository.StudentRepository;
+import io.github.muhittinpalamutcu.utils.EntityManagerUtils;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.util.List;
 
 public class StudentService implements CrudRepository<Student>, StudentRepository {
 
     final String PERSISTENCE_UNIT_NAME = "mysqlPU";
 
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+    EntityManager entityManager;
 
     @Override
+
     public Student findById(int id) {
-        EntityManager entityManager = emf.createEntityManager();
+        entityManager = EntityManagerUtils.getEntityManager(PERSISTENCE_UNIT_NAME);
         return entityManager.find(Student.class, id);
     }
 
     @Override
     public List<Student> findAll() {
-        EntityManager entityManager = emf.createEntityManager();
+        entityManager = EntityManagerUtils.getEntityManager(PERSISTENCE_UNIT_NAME);
         return entityManager.createQuery("from Student", Student.class).getResultList();
     }
 
     @Override
     public void saveToDatabase(Student student) {
-        EntityManager entityManager = emf.createEntityManager();
+        entityManager = EntityManagerUtils.getEntityManager(PERSISTENCE_UNIT_NAME);
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(student);
@@ -44,7 +44,7 @@ public class StudentService implements CrudRepository<Student>, StudentRepositor
 
     @Override
     public void updateOnDatabase(int id, Student student) {
-        EntityManager entityManager = emf.createEntityManager();
+        entityManager = EntityManagerUtils.getEntityManager(PERSISTENCE_UNIT_NAME);
         try {
             entityManager.getTransaction().begin();
             Student foundStudent = entityManager.find(Student.class, id);
@@ -62,7 +62,7 @@ public class StudentService implements CrudRepository<Student>, StudentRepositor
 
     @Override
     public void deleteStudentFromDatabase(int id) {
-        EntityManager entityManager = emf.createEntityManager();
+        entityManager = EntityManagerUtils.getEntityManager(PERSISTENCE_UNIT_NAME);
         try {
             entityManager.getTransaction().begin();
             Student student = entityManager.createQuery("from Student s where s.id=:id", Student.class).setParameter("id", id).getSingleResult();
@@ -77,7 +77,7 @@ public class StudentService implements CrudRepository<Student>, StudentRepositor
 
     @Override
     public void updateStudentAddressOnDatabase(int id, String address) {
-        EntityManager entityManager = emf.createEntityManager();
+        entityManager = EntityManagerUtils.getEntityManager(PERSISTENCE_UNIT_NAME);
         try {
             entityManager.getTransaction().begin();
             Student student = entityManager.find(Student.class, id);
@@ -92,7 +92,7 @@ public class StudentService implements CrudRepository<Student>, StudentRepositor
 
     @Override
     public void enrollInCourse(int id, String courseCode) {
-        EntityManager entityManager = emf.createEntityManager();
+        entityManager = EntityManagerUtils.getEntityManager(PERSISTENCE_UNIT_NAME);
         try {
             entityManager.getTransaction().begin();
             Student student = entityManager.find(Student.class, id);

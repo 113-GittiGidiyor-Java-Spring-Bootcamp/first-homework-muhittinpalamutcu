@@ -37,6 +37,4 @@ public class StudentController {
     public void studentEnrollInCourse(int id, String courseCode) {
         studentService.enrollInCourse(id, courseCode);
     }
-
-
 }
