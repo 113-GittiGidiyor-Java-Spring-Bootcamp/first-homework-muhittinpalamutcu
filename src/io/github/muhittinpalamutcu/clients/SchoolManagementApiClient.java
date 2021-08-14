@@ -10,17 +10,51 @@ import java.time.Month;
 import java.util.List;
 
 public class SchoolManagementApiClient {
+
+    static StudentController studentController = new StudentController();
+
     public static void main(String[] args) {
         //saveTestData();
 
-        StudentController studentController = new StudentController();
+        //updateStudent(1, new Student("Muhittin Palamutcu", "Gaziemir, Izmir", LocalDate.of(1998, Month.AUGUST, 30), "MALE"));
+        //updateStudentAddress(9, "Besiktas, Istanbul");
+        //findStudent(1);
+        //saveNewStudent(new Student("Ozlem Oz", "Istanbul", LocalDate.of(1980, Month.APRIL, 17), "FEMALE"));
+        //studentController.studentEnrollInCourse(9, "SE302");
 
+        listAllStudents();
+    }
+
+    private static void listAllStudents() {
         List<Student> students = studentController.findAll();
 
         for (Student student : students) {
             System.out.println(student);
         }
+    }
 
+    private static void findStudent(int id) {
+        System.out.println(studentController.findById(id));
+    }
+
+    private static void saveNewStudent(Student student) {
+        studentController.saveNewStudent(student);
+    }
+
+    private static void deleteStudent(int id) {
+        studentController.deleteStudent(id);
+    }
+
+    private static void studentEnrollInCourse(int id, String courseCode) {
+        studentController.studentEnrollInCourse(id, courseCode);
+    }
+
+    private static void updateStudent(int id, Student student) {
+        studentController.updateStudent(id, student);
+    }
+
+    private static void updateStudentAddress(int id, String newAddress) {
+        studentController.updateStudentAddress(id, newAddress);
     }
 
     private static void saveTestData() {
@@ -69,7 +103,5 @@ public class SchoolManagementApiClient {
         } finally {
             EntityManagerUtils.closeEntityManager(em);
         }
-
-
     }
 }
